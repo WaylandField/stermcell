@@ -1,0 +1,54 @@
+define(['js/backbone','js/bootstrap'],function(){
+    
+    var NavigationModel = Backbone.Model.extend({
+        defaults : {
+            'label' :"navi",
+            'class' : 'active',
+            'type' : 'plain'
+        }
+    });
+
+    var NavigationListModel = Backbone.Collection.extend({
+        model: NavigationModel
+    });
+    
+    var Navigation = Backbone.View.extend({
+        render : function(){
+            var h = [];
+            this.renderHtml(h);
+            $(this.el).html(h.join(""));
+            return this;
+        },
+        renderHtml : function(h){
+            if(this.model.type==='plain'){
+                h.push();
+            }
+            return this;
+        }
+    });
+
+    var NavigationList = Backbone.View.extend({
+        render : function(){
+            if(this.navis){
+                for(var i=0;i<this.navis.length;i++){
+                    var navi = new Navigation({
+                        model: this.navis[i]
+                    });
+                    $(this.el).prepend(navi.render().el);
+                }
+            }
+        },
+        renderHtml : function(h){
+            h.push("<ul class=\"nav nav-pills\">");
+            if(this.navis){
+                for(var i=0;i<this.navis.length;i++){
+                    var navi = new Navigation({
+                        model: this.navis[i]
+                    });
+                    navi.renderHtml(h);
+                }
+            }
+            h.push("</ul>");
+        }
+    });
+});

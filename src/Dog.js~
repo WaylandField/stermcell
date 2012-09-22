@@ -1,0 +1,7 @@
+function Dog(){
+    this.name="dog";
+}
+
+Dog.prototype.bite = function(){
+    this.bite = true;
+}

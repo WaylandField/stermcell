@@ -1,0 +1,7 @@
+define(function(){
+    Backbone.view.extend({
+        render : function(){
+            $(this.el).html("view");
+        }
+    });
+});
